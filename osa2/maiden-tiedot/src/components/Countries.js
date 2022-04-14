@@ -44,8 +44,10 @@ const DetailedCountry = ({ country }) => {
   return (
     <div>
       <h2>{country.name.common}</h2>
-      <p>capital {country.capital}</p>
-      <p>area: {country.area}</p>
+      <p>
+        capital {country.capital}<br/>
+        area: {country.area}
+      </p>
       <h3>languages:</h3>
       <Languages country={country} />
       <Flag link={country.flags.png}/>
