@@ -8,7 +8,7 @@ const Weather = ({ city }) => {
 
     const cityCoordLink = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
 
-    const hook = () => {
+    useEffect(() => {
         axios
             .get(cityCoordLink)
             .then(response => {
@@ -22,9 +22,7 @@ const Weather = ({ city }) => {
                 setWeatherData(response.data)
                 setIsLoading(false)
             })
-    }
-
-    useEffect(hook, [])
+    },[])
 
     if (isloading) {
         return <div>Loading weahter...</div>

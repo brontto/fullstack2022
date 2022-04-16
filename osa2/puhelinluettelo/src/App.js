@@ -11,16 +11,13 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
-  const hook = () => {
+  useEffect(() => {
     personService
       .getAll()
       .then(initialPerson => {
         setPersons(initialPerson)
       })
-  }
-
-  useEffect(hook, [])
-
+  }, [])
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -30,7 +27,26 @@ const App = () => {
     }
 
     if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const person = persons.find(person => person.name === newName)
+        const updatedPerson = {
+          name: person.name,
+          number: newNumber
+        }
+        const id = person.id
+        personService
+          .update(id, updatedPerson)
+          .then(returnedPerson => {
+            setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+            setNewName('')
+            setNewNumber('')
+          })
+          .catch(error => {
+            setPersons(persons.filter(n => n.id !== id))
+          })
+      }
+
+
     } else {
       personService
         .create(newPerson)
@@ -38,6 +54,17 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+        })
+    }
+  }
+
+  const removePerson = (person) => {
+    if (window.confirm(`Delete ${person.name}`)) {
+      const id = person.id
+      personService
+        .remove(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id))
         })
     }
   }
@@ -67,7 +94,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Numbers persons={persons} filter={filter} />
+      <Numbers persons={persons} filter={filter} removePerson={removePerson} />
     </div>
   )
 }

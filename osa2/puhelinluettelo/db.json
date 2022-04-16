@@ -1,8 +1,13 @@
 {
   "persons": [
     {
+      "name": "Kalle Päätalo",
+      "number": "666-586-301",
+      "id": 6
+    },
+    {
       "name": "Arto Hellas",
-      "number": "040-123456",
+      "number": "554-23345-43",
       "id": 1
     },
     {
@@ -19,16 +24,6 @@
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 4
-    },
-    {
-      "name": "Jaska Jokunen",
-      "number": "115-886-223",
-      "id": 5
-    },
-    {
-      "name": "Kalle Päätalo",
-      "number": "666-854-17555",
-      "id": 6
     }
   ]
 }
