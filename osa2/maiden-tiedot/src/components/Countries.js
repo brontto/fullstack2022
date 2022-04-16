@@ -12,7 +12,7 @@ const Countries = ({ countries, filter, setFilter }) => {
     )
   } else if (filtered.length === 1) {
     return (
-      <DetailedCountry country={filtered[0]} />
+      <Country country={filtered[0]} />
     )
   } else {
     return (
@@ -25,13 +25,13 @@ const CountryList = ({ countries, setFilter }) => {
   return (
     <div>
       {countries.map((country) =>
-        <Country key={country.name.common} country={country} setFilter={setFilter}/>
+        <CountryLine key={country.name.common} country={country} setFilter={setFilter}/>
       )}
     </div>
   )
 }
 
-const Country = ({ country, setFilter}) => {
+const CountryLine = ({ country, setFilter}) => {
   return (
     <div>
     {country.name.common}
@@ -40,7 +40,7 @@ const Country = ({ country, setFilter}) => {
   )
 }
 
-const DetailedCountry = ({ country }) => {
+const Country = ({ country }) => {
   return (
     <div>
       <h2>{country.name.common}</h2>

@@ -1,65 +1,22 @@
-import { useState,useEffect } from 'react'
-import axios from 'axios'
-
-
-const Numbers = ({ filtered }) => {
-  return (
-    <>
-      {filtered.map(person => <p key={person.name}>{person.name} {person.number}</p>)}
-    </>
-  )
-}
-
-const Filter = ({ filter, handleChange }) => {
-  return (
-    <div>
-      filter shown with: <input
-        value={filter}
-        onChange={handleChange}
-      />
-    </div>
-  )
-}
-
-const PersonForm = (props) => {
-  return(
-    <form onSubmit={props.addPerson}>
-        <FormPart text={'name:'} newValue={props.newName} handleChange={props.handleNameChange}/>
-        <FormPart text={'number:'} newValue={props.newNumber} handleChange={props.handleNumberChange}/>
-        <div>
-          <button type='submit'>add</button>
-        </div>
-      </form>
-  )
-} 
-
-const FormPart = ({text, newValue, handleChange}) => {
-  return (
-    <div>
-      {text} <input 
-        value={newValue}
-        onChange={handleChange}
-      />
-    </div>
-  )
-}
+import { useState, useEffect } from 'react'
+import personService from './services/persons'
+import Filter from './components/Filter'
+import Numbers from './components/Numbers'
+import PersonForm from './components/PersonForm'
 
 
 const App = () => {
   const [persons, setPersons] = useState([])
-  const [filtered, setFiltered] = useState([...persons])
-
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
 
   const hook = () => {
-    axios
-    .get('http://localhost:3001/persons')
-    .then(response => {
-      setPersons(response.data)
-      setFiltered(response.data)
-    })
+    personService
+      .getAll()
+      .then(initialPerson => {
+        setPersons(initialPerson)
+      })
   }
 
   useEffect(hook, [])
@@ -75,11 +32,13 @@ const App = () => {
     if (persons.some((person) => person.name === newName)) {
       alert(`${newName} is already added to phonebook`)
     } else {
-      setPersons(persons.concat(newPerson))
-      setFilter('')
-      setFiltered(filtered.concat(newPerson))
-      setNewName('')
-      setNewNumber('')
+      personService
+        .create(newPerson)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
@@ -93,17 +52,22 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-    setFiltered(persons.filter((person) => person.name.toLowerCase().includes(event.target.value.toLowerCase())))
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter filter={filter} handleChange={handleFilterChange}/>
+      <Filter filter={filter} handleChange={handleFilterChange} />
       <h2>add a new</h2>
-      <PersonForm addPerson={addPerson} newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange}/>
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange}
+      />
       <h2>Numbers</h2>
-      <Numbers filtered={filtered} />
+      <Numbers persons={persons} filter={filter} />
     </div>
   )
 }
