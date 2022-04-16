@@ -20,20 +20,20 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value)
-  } 
+  }
 
   return (
     <div>
       <h2>maiden tiedot</h2>
       <div>
-        find countries 
+        find countries
         <input
           value={filter}
           onChange={handleFilterChange}
         />
       </div>
       <div>
-        <Countries countries={countries} filter={filter} setFilter={setFilter}/>
+        <Countries countries={countries} filter={filter} setFilter={setFilter} />
       </div>
     </div>
   );

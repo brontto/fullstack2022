@@ -32,22 +32,22 @@ const Weather = ({ city }) => {
         return (
             <div>
                 <h2>Weahter in {city}</h2>
-                <Temperature temp={weatherData.main.temp}/>
+                <Temperature temp={weatherData.main.temp} />
                 <WeatherIcon icon={weatherData.weather[0].icon} />
-                <Wind speed={weatherData.wind.speed}/>
+                <Wind speed={weatherData.wind.speed} />
             </div>
         )
     }
 }
 
-const WeatherIcon = ({icon}) => {
+const WeatherIcon = ({ icon }) => {
     const iconLink = `http://openweathermap.org/img/wn/${icon}@2x.png`
     return (
-        <img src={iconLink} alt='weaherIcon'/>
+        <img src={iconLink} alt='weaherIcon' />
     )
 }
 
-const Wind = ({speed}) => {
+const Wind = ({ speed }) => {
     return (
         <div>
             wind {speed} m/s

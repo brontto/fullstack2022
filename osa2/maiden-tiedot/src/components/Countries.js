@@ -16,7 +16,7 @@ const Countries = ({ countries, filter, setFilter }) => {
     )
   } else {
     return (
-      <CountryList countries={filtered} setFilter={setFilter}/>
+      <CountryList countries={filtered} setFilter={setFilter} />
     )
   }
 }
@@ -25,17 +25,17 @@ const CountryList = ({ countries, setFilter }) => {
   return (
     <div>
       {countries.map((country) =>
-        <CountryLine key={country.name.common} country={country} setFilter={setFilter}/>
+        <CountryLine key={country.name.common} country={country} setFilter={setFilter} />
       )}
     </div>
   )
 }
 
-const CountryLine = ({ country, setFilter}) => {
+const CountryLine = ({ country, setFilter }) => {
   return (
     <div>
-    {country.name.common}
-    <button onClick={() => setFilter(country.name.common)}>show</button>
+      {country.name.common}
+      <button onClick={() => setFilter(country.name.common)}>show</button>
     </div>
   )
 }
@@ -45,21 +45,21 @@ const Country = ({ country }) => {
     <div>
       <h2>{country.name.common}</h2>
       <p>
-        capital {country.capital}<br/>
+        capital {country.capital}<br />
         area: {country.area}
       </p>
       <h3>languages:</h3>
       <Languages country={country} />
-      <Flag link={country.flags.png}/>
+      <Flag link={country.flags.png} />
       <Weather city={'London'} />
     </div>
   )
 }
 
-const Flag = ({link}) =>{
-  return(
+const Flag = ({ link }) => {
+  return (
     <div>
-      <img src={link} alt='flag'/>
+      <img src={link} alt='flag' />
     </div>
   )
 }
