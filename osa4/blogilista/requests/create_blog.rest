@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Huippu Blogi",
-    "author": "Jaska Penttilä",
-    "url": "http://blogilinkkitähän",
+    "title": "Huono Blogi",
+    "author": "Kalle Penttilä",
+    "url": "http://linkkimoi.com",
     "likes": 4
 }
