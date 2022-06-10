@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Huono Blogi",
-    "author": "Kalle Penttilä",
+    "title": "Jolo Blogi",
+    "author": "Markku Jooseppi",
     "url": "http://linkkimoi.com",
-    "likes": 4
+    "likes": 19
 }
