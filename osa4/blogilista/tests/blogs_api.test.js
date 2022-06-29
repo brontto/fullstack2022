@@ -26,6 +26,29 @@ test('identiefier is id', async () => {
 
 })
 
+test('a blog can be added', async () => {
+    const newBlog = {
+        title: "Uusi Blogi",
+        author: "Pirkko Männistö",
+        url: "www.pirkonblogi.fi"
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length +1)
+
+    const titles = blogsAtEnd.map(b => b.title)
+    expect(titles).toContain(
+        'Uusi Blogi'
+    )
+    
+})
+
 afterAll(() => {
     mongoose.connection.close()
 })
