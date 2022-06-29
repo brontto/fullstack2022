@@ -28,9 +28,10 @@ test('identiefier is id', async () => {
 
 test('a blog can be added', async () => {
     const newBlog = {
-        title: "Uusi Blogi",
-        author: "Pirkko Männistö",
-        url: "www.pirkonblogi.fi"
+        title: 'Uusi Blogi',
+        author: 'Pirkko Männistö',
+        url: 'www.pirkonblogi.fi',
+        likes: 7
     }
 
     await api
@@ -47,6 +48,25 @@ test('a blog can be added', async () => {
         'Uusi Blogi'
     )
     
+})
+
+test('field "likes" have value 0 if not initialized', async () => {
+    const newBlog = {
+        title: 'Epäsuosittu Blogi',
+        author: 'Salainen Kalle',
+        url: 'alaluetataskeidaa.com',
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const blogsAtEnd = await helper.blogsInDb()
+    const rightBlog = blogsAtEnd.find(blog => blog.title === 'Epäsuosittu Blogi')
+    expect(rightBlog.likes).toBe(0)
+
 })
 
 afterAll(() => {
