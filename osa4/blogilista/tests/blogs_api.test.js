@@ -21,7 +21,7 @@ test('blogs are returned as json', async () => {
 
 test('identiefier is id', async () => {
     const response = await api.get('/api/blogs')
-    
+
     expect(response.body[0].id).toBeDefined()
 
 })
@@ -41,13 +41,13 @@ test('a blog can be added', async () => {
         .expect('Content-Type', /application\/json/)
 
     const blogsAtEnd = await helper.blogsInDb()
-    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length +1)
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
 
     const titles = blogsAtEnd.map(b => b.title)
     expect(titles).toContain(
         'Uusi Blogi'
     )
-    
+
 })
 
 test('field "likes" have value 0 if not initialized', async () => {
@@ -66,6 +66,30 @@ test('field "likes" have value 0 if not initialized', async () => {
     const blogsAtEnd = await helper.blogsInDb()
     const rightBlog = blogsAtEnd.find(blog => blog.title === 'Epäsuosittu Blogi')
     expect(rightBlog.likes).toBe(0)
+
+})
+
+
+test('a invalid blog cant be added', async () => {
+    const urlLessBlog = {
+        title: 'Bloggendeerus',
+        author: 'Martti'
+    }
+    await api
+        .post('/api/blogs')
+        .send(urlLessBlog)
+        .expect(400)
+
+    const tittLessBlog = {
+        author: 'Kalle Makkonen',
+        url: 'Kallenblogi',
+        likes: 5
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(tittLessBlog)
+        .expect(400)
 
 })
 
