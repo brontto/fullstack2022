@@ -5,7 +5,7 @@ const initialBlogs = [
         title: "HuippuBlogi",
         author: "Jaska Pekkanen",
         url: "www.jaskanblogi.org",
-        likes: 6
+        likes: 1
     },
     {
         title: "Autoblogi",

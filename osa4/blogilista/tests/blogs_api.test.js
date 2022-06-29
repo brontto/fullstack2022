@@ -118,6 +118,30 @@ describe('some basic test', () => {
             expect(titles).not.toContain(blogToDelete.title)
         })
     })
+
+    describe('updating stuff', () => {
+
+        test('update blog by id', async () => {
+            const blogsAtStart = await helper.blogsInDb()
+            const blogToChange = blogsAtStart[0]
+            
+            const changes = {
+                likes: blogToChange.likes + 1
+            }
+
+            await api
+                .put(`/api/blogs/${blogToChange.id}`)
+                .send(changes)
+                .expect(200)
+
+            const blogsAtEnd = await helper.blogsInDb()
+
+            const changedBlog = blogsAtEnd.find(blog => blog.title === blogToChange.title)
+            expect(changedBlog.likes).toBe(blogToChange.likes+1)
+
+            
+        })
+    })
 })
 
 afterAll(() => {
