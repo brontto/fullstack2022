@@ -1,5 +1,6 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJyb250dG8iLCJpZCI6IjYyYzFjMmJhODZiNjdjNmM5NDVkOTM2ZSIsImlhdCI6MTY1Njg2ODg4NCwiZXhwIjoxNjU2ODcyNDg0fQ.EKFA9qYVBdIEBSCTVpEaW66nWU1IKhPIzfwA5UvBBrM
 
 {
     "title": "Jolo Blogi",
