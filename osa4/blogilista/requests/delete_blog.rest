@@ -1,10 +1,3 @@
-POST http://localhost:3003/api/blogs
+DELETE http://localhost:3003/api/blogs/62c1d6e63fd8feaaaa50e951
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJyb250dG8iLCJpZCI6IjYyYzFjMmJhODZiNjdjNmM5NDVkOTM2ZSIsImlhdCI6MTY1Njg3MDU1NywiZXhwIjoxNjU2ODc0MTU3fQ.LP6lqwXMS9KgSfKdBh0yMeEh3eQvyeo7LvjJRpvjei8
-
-{
-    "title": "Jolo Blogi",
-    "author": "Markku Jooseppi",
-    "url": "http://linkkimoi.com",
-    "likes": 155555
-}
