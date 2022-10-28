@@ -76,6 +76,20 @@ const App = () => {
       })
   }
 
+  const updateBlog = (id, blogObject) => {
+    blogService
+    .update(id, blogObject)
+    .then(returnedBlog => {
+      setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
+      setMessage(`a blog ${returnedBlog.title} by ${returnedBlog.author} updated`)
+      setMessageType('success')
+      setTimeout(() =>{
+        setMessage(null)
+        setMessageType(null)
+      })
+    })
+  }
+
   const loginPage = () => (
     <LoginForm
       handleLogin={handleLogin}
@@ -101,7 +115,7 @@ const App = () => {
         />
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
       )}
     </div>
   )
