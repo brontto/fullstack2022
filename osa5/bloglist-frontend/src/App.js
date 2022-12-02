@@ -78,16 +78,32 @@ const App = () => {
 
   const updateBlog = (id, blogObject) => {
     blogService
-    .update(id, blogObject)
-    .then(returnedBlog => {
-      setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
-      setMessage(`a blog ${returnedBlog.title} by ${returnedBlog.author} updated`)
-      setMessageType('success')
-      setTimeout(() =>{
-        setMessage(null)
-        setMessageType(null)
+      .update(id, blogObject)
+      .then(returnedBlog => {
+        setBlogs(blogs.map(blog => blog.id !== id ? blog : returnedBlog))
+        setMessage(`a blog ${returnedBlog.title} by ${returnedBlog.author} updated`)
+        setMessageType('success')
+        setTimeout(() => {
+          setMessage(null)
+          setMessageType(null)
+        })
       })
-    })
+  }
+
+  const removeBlog = (id) => {
+    if (window.confirm('Are you sure you want to delete this blog?')) {
+      blogService
+        .remove(id)
+        .then(() => {
+          setBlogs(blogs.filter(blog => blog.id !== id))
+          setMessage(`a blog removed`)
+          setMessageType('success')
+          setTimeout(() => {
+            setMessage(null)
+            setMessageType(null)
+          })
+        })
+    }
   }
 
   const loginPage = () => (
@@ -116,8 +132,8 @@ const App = () => {
       </Togglable>
       {blogs.sort((a, b) => b.likes - a.likes)
         .map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
-      )}
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog}/>
+        )}
     </div>
   )
 
