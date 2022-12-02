@@ -30,7 +30,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
     <div style={blogStyle}>
 
       <div style={hideWhenVisible}>
-        <div onClick={() => setShowDetails(true)} style={{cursor: 'pointer'}}>{blog.title}, {blog.author}</div>
+        <div onClick={() => setShowDetails(true)} style={{ cursor: 'pointer' }}>{blog.title}, {blog.author}</div>
       </div>
       <div style={showWhenVisible}>
         {blog.title}, {blog.author}

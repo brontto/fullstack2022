@@ -96,7 +96,7 @@ const App = () => {
         .remove(id)
         .then(() => {
           setBlogs(blogs.filter(blog => blog.id !== id))
-          setMessage(`a blog removed`)
+          setMessage('a blog removed')
           setMessageType('success')
           setTimeout(() => {
             setMessage(null)
@@ -132,7 +132,7 @@ const App = () => {
       </Togglable>
       {blogs.sort((a, b) => b.likes - a.likes)
         .map(blog =>
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog}/>
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} />
         )}
     </div>
   )
