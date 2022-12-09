@@ -16,6 +16,8 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
   const hideWhenVisible = { display: showDetails ? 'none' : '' }
   const showWhenVisible = { display: showDetails ? '' : 'none' }
 
+  const hideWhenNotOwner = { display: blog.user.username === JSON.parse(window.localStorage.getItem('loggedBlogappUser')).username ? '' : 'none' }
+
   const addLike = () => {
     const blogObject = {
       title: blog.title,
@@ -25,6 +27,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
     }
     updateBlog(blog.id, blogObject)
   }
+
 
   return (
     <div style={blogStyle}>
@@ -39,7 +42,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
         <div>
           likes {blog.likes} <button onClick={addLike}>like</button>
         </div>
-        <div>
+        <div style={hideWhenNotOwner}>
           <button onClick={() => removeBlog(blog.id)}>remove</button>
         </div>
       </div>
