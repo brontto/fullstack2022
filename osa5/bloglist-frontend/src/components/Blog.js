@@ -33,7 +33,7 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
     <div style={blogStyle}>
 
       <div style={hideWhenVisible}>
-        <div onClick={() => setShowDetails(true)} style={{ cursor: 'pointer' }} placeholder='sort version'>{blog.title}, {blog.author}</div>
+        <div onClick={() => setShowDetails(true)} style={{ cursor: 'pointer' }} placeholder='sort version' className='blog'>{blog.title}, {blog.author}</div>
       </div>
       <div style={showWhenVisible} placeholder='long version'>
         {blog.title}, {blog.author}

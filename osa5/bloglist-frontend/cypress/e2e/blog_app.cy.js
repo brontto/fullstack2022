@@ -98,4 +98,39 @@ describe('Blog app', function () {
     })
 
   })
+
+  describe('When multiple blogs exist', function () {
+    beforeEach(function () {
+      cy.login({ username: 'testuser', password: 'testpass' })
+      cy.createBlog({
+        title: 'Test Blog 1',
+        author: 'Test Author 1',
+        url: 'http://testurl1.com',
+        likes: 1
+      })
+      cy.createBlog({
+        title: 'Test Blog 2',
+        author: 'Test Author 2',
+        url: 'http://testurl2.com',
+        likes: 2
+      })
+      cy.createBlog({
+        title: 'Test Blog 3',
+        author: 'Test Author 3',
+        url: 'http://testurl3.com',
+        likes: 5
+      })
+
+      
+    })
+    
+    it('Blogs are ordered by likes', function () {
+      cy.visit('http://localhost:3000')
+
+      cy.get('.blog').eq(0).should('contain', 'Test Blog 3')
+      cy.get('.blog').eq(1).should('contain', 'Test Blog 2')
+      cy.get('.blog').eq(2).should('contain', 'Test Blog 1')
+    })
+
+  })
 })
